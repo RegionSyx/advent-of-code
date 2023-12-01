@@ -1,0 +1,44 @@
+stdin as input
+
+filter("1") = "1"
+filter("2") = "2"
+filter("3") = "3"
+filter("4") = "4"
+filter("5") = "5"
+filter("6") = "6"
+filter("7") = "7"
+filter("8") = "8"
+filter("9") = "9"
+filter("0") = "0"
+filter(x) = ""
+
+input
+split("\n")
+    list
+        filter(_)
+    join("")
+    list as digits
+    add(first(digits), last(digits))
+    int
+sum
+print
+
+input
+split("\n")
+    replace("two", "tw2o")
+    replace("one", "on1e")
+    replace("eight", "eigh8t")
+    replace("three", "thre3e")
+    replace("four", "fou4r")
+    replace("five", "fiv5e")
+    replace("six", "si6x")
+    replace("nine", "nin9e")
+    replace("seven", "seve7n")
+    list
+        filter(_)
+    join("")
+    list as digits
+    add(first(digits), last(digits))
+    int
+sum
+print
