@@ -1,17 +1,9 @@
 stdin as input
 
-strip(s) = pyeval("s.strip()")
-max(d) = pyeval("max(d)")
-lte(a, b) = pyeval("a <= b")
-third(d) = get(d, 2)
-and(a, b) = pyeval("a and b")
-all(d) = pyeval("all(d)")
-
-mark(d, val) = pyeval("val if d else 0")
-
 color_index("red") = 0
 color_index("green") = 1
 color_index("blue") = 2
+
 
 is_possible(dice) = and(lte(first(dice), 12), and(lte(second(dice), 13), lte(third(dice), 14)))
     
@@ -49,7 +41,7 @@ split("\n")
             set(acc, color, max((count, get(acc, color))))
         is_possible
     all
-    mark(_, game_id)
+    if(_, game_id, 0)
 sum
 print
 
@@ -85,16 +77,9 @@ split("\n")
             color_index(_) as color
 
             set(acc, color, max((count, get(acc, color))))
-        _
-    reduce((0, 0, 0))
-        _1 as data
-        _2 as acc
-
-        acc
-        set(0, max((get(acc, 0), get(data, 0))))
-        set(1, max((get(acc, 1), get(data, 1))))    
-        set(2, max((get(acc, 2), get(data, 2))))
-    _ as result
-    mul(first(result), mul(second(result), third(result)))
+    transpose
+        max
+    reduce(1)
+        mul(_1, _2)
 sum
 print
