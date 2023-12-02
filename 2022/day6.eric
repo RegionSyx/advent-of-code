@@ -1,0 +1,16 @@
+# https://adventofcode.com/2022/day/6
+
+stdin | list as input
+
+(4, 14)
+    _ as N
+    range(N, len(input))
+        _ as i
+        
+        slice(input, sub(i, N), i)
+        distinct
+        len
+        eq(N)
+    index(true)
+    add(N)
+    print
