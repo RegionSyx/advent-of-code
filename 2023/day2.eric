@@ -4,7 +4,6 @@ color_index("red") = 0
 color_index("green") = 1
 color_index("blue") = 2
 
-
 is_possible(dice) = and(lte(first(dice), 12), and(lte(second(dice), 13), lte(third(dice), 14)))
     
 input
