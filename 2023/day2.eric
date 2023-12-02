@@ -10,32 +10,19 @@ input
 split("\n")
     split(":") as game_parts
     
-    game_parts
-    first
-    split(" ")
-    second
-    int as game_id
+    game_parts | first | split(" ") | second | int as game_id
     
-    game_parts
-    second
-    split(";")
+    game_parts | second | split(";")
         strip
         split(",")
         reduce((0, 0, 0))
             _1 as data
             _2 as acc
 
-            data
-            strip
-            split(" ") as parts
+            data | strip | split(" ") as parts
 
-            parts
-            first
-            int as count
-
-            parts
-            second
-            color_index(_) as color
+            parts | first  | int            as count
+            parts | second | color_index(_) as color
 
             set(acc, color, max((count, get(acc, color))))
         is_possible
@@ -48,32 +35,19 @@ input
 split("\n")
     split(":") as game_parts
     
-    game_parts
-    first
-    split(" ")
-    second
-    int as game_id
-    
-    game_parts
-    second
-    split(";")
+    game_parts | first | split(" ") | second | int as game_id
+
+    game_parts | second | split(";")
         strip
         split(",")
         reduce((0, 0, 0))
             _1 as data
             _2 as acc
 
-            data
-            strip
-            split(" ") as parts
+            data | strip | split(" ") as parts
 
-            parts
-            first
-            int as count
-
-            parts
-            second
-            color_index(_) as color
+            parts | first  | int            as count
+            parts | second | color_index(_) as color
 
             set(acc, color, max((count, get(acc, color))))
     transpose
