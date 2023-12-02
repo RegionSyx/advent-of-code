@@ -1,0 +1,66 @@
+stdin as input
+
+(
+    ("B", "Q", "C"),
+    ("R", "Q", "W", "Z"),
+    ("B", "M", "R", "L", "V"),
+    ("C", "Z", "H", "V", "T", "W"),
+    ("D", "Z", "H", "B", "N", "V", "G"),
+    ("H", "N", "P", "C", "J", "F", "V", "Q"),
+    ("D", "G", "T", "R", "W", "Z", "S"),
+    ("C", "G", "M", "N", "B", "W", "Z", "P"),
+    ("N", "J", "B", "M", "W", "Q", "F", "P"),
+) as initial_state
+
+input
+split("\n\n")
+second
+splitlines
+    split(" ")
+_ as moves
+
+moves
+reduce(initial_state)
+    _1                          as move
+    _2                          as state
+    sub(int(index(move, 3)), 1) as from_pos
+    sub(int(index(move, 5)), 1) as to_pos
+    int(index(move, 1))         as num
+
+    range(0, num)
+    reduce(state)
+        _1                     as move
+        _2                     as state
+        index(state, from_pos) as from_stack
+        index(state, to_pos)   as to_stack
+        last(from_stack)       as item
+
+        state
+        set(from_pos, slice(from_stack, 0, sub(len(from_stack), 1)))
+        set(to_pos, append(to_stack, item))
+_
+    last
+join("")
+print
+
+
+moves
+reduce(initial_state)
+    _1                          as move
+    _2                          as state
+    sub(int(index(move, 3)), 1) as from_pos
+    sub(int(index(move, 5)), 1) as to_pos
+    int(index(move, 1))         as num
+
+    index(state, from_pos) as from_stack
+    index(state, to_pos)   as to_stack
+
+    slice(from_stack, sub(len(from_stack), num), len(from_stack)) as items
+
+    state
+    set(from_pos, slice(from_stack, 0, sub(len(from_stack), num)))
+    set(to_pos, extend(to_stack, items))
+_
+    last
+join("")
+print

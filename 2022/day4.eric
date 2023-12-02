@@ -1,0 +1,30 @@
+stdin as input
+
+score(true) = 1
+score(false) = 0
+
+input
+splitlines
+    split(",")     as sets
+        split("-") as A
+            int
+        range(first(A), inc(second(A)))
+    or(issubset(first(sets), second(sets)), issubset(second(sets), first(sets)))
+    score(_)
+sum
+print
+
+
+input
+splitlines
+    split(",") as sets
+        split("-") as A
+            int
+        range(first(A), inc(second(A)))
+    intersect(first(sets), second(sets))
+    len
+    clamp(0, 1)
+sum
+print
+
+

@@ -1,0 +1,40 @@
+stdin as input
+
+score("A", "X") = 4
+score("A", "Y") = 8
+score("A", "Z") = 3
+score("B", "X") = 1
+score("B", "Y") = 5
+score("B", "Z") = 9
+score("C", "X") = 7
+score("C", "Y") = 2
+score("C", "Z") = 6
+
+choose_move("A", "X") = "Z"
+choose_move("A", "Y") = "X"
+choose_move("A", "Z") = "Y"
+choose_move("B", "X") = "X"
+choose_move("B", "Y") = "Y"
+choose_move("B", "Z") = "Z"
+choose_move("C", "X") = "Y"
+choose_move("C", "Y") = "Z"
+choose_move("C", "Z") = "X"
+
+input
+splitlines
+    split(" ")     as data
+    index(data, 0) as A
+    index(data, 1) as B
+    score(A, B)
+sum
+print
+
+input
+splitlines
+    split(" ")          as data
+    index(data, 0)      as A
+    index(data, 1)      as B
+    choose_move(A, B)   as next_move
+    score(A, next_move)
+sum
+print

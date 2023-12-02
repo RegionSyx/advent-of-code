@@ -1,0 +1,81 @@
+ord_value("a") = 1
+ord_value("b") = 2
+ord_value("c") = 3
+ord_value("d") = 4
+ord_value("e") = 5
+ord_value("f") = 6
+ord_value("g") = 7
+ord_value("h") = 8
+ord_value("i") = 9
+ord_value("j") = 10
+ord_value("k") = 11
+ord_value("l") = 12
+ord_value("m") = 13
+ord_value("n") = 14
+ord_value("o") = 15
+ord_value("p") = 16
+ord_value("q") = 17
+ord_value("r") = 18
+ord_value("s") = 19
+ord_value("t") = 20
+ord_value("u") = 21
+ord_value("v") = 22
+ord_value("w") = 23
+ord_value("x") = 24
+ord_value("y") = 25
+ord_value("z") = 26
+
+ord_value("A") = 27
+ord_value("B") = 28
+ord_value("C") = 29
+ord_value("D") = 30
+ord_value("E") = 31
+ord_value("F") = 32
+ord_value("G") = 33
+ord_value("H") = 34
+ord_value("I") = 35
+ord_value("J") = 36
+ord_value("K") = 37
+ord_value("L") = 38
+ord_value("M") = 39
+ord_value("N") = 40
+ord_value("O") = 41
+ord_value("P") = 42
+ord_value("Q") = 43
+ord_value("R") = 44
+ord_value("S") = 45
+ord_value("T") = 46
+ord_value("U") = 47
+ord_value("V") = 48
+ord_value("W") = 49
+ord_value("X") = 50
+ord_value("Y") = 51
+ord_value("Z") = 52
+
+stdin as input
+
+input
+split("\n")
+    list(_)           as data
+    len(data)         as N
+    div(N, 2)         as M
+    slice(data, 0, M) as A
+    slice(data, M, N) as B
+    intersect(A, B)
+flatten
+    ord_value(_)
+sum
+print
+
+input
+split("\n")
+batch(3)
+    _ as data
+    index(data, 0) as A
+    index(data, 1) as B
+    index(data, 2) as C
+    intersect(A, intersect(B, C))
+    index(_, 0)
+    ord_value(_)
+sum
+print

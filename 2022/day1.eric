@@ -1,0 +1,20 @@
+stdin as input
+
+input
+split("\n\n")
+    split("\n")
+        int
+    sum
+max
+print
+
+input
+split("\n\n")
+    splitlines
+        int
+    sum
+sort
+reverse
+take(3)
+sum
+print
