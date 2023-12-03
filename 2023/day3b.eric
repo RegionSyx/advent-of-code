@@ -1,0 +1,249 @@
+stdin as input
+
+is_blank(x) = eq(x, "")
+not(x) = pyeval("not(x)")
+
+enumerate(d) = pyeval("tuple(enumerate(d))")
+getd(d, i, de) = pyeval("d[i]")
+append(d, item) = pyeval("d +(item,)")
+flatten(d) = pyeval("tuple([item for row in d for item in row])")
+
+input
+split("\n") 
+    list
+_ as parsed_input
+
+parsed_input
+enumerate
+    _ as arg
+    first(arg) as row
+    second(arg) as line
+
+    line | print
+
+    line
+    enumerate
+        _ as arg
+        first(arg) as col
+        second(arg) as d
+        
+        ((row, col), d)
+flatten
+_ as puzzle_map
+
+transform("*") = "*"
+transform(x) = x
+
+intersect(a, b) = pyeval("tuple(set(a).intersection(b))")
+
+puzzle_map
+    _ as item
+    first(item) as pos
+    second(item) as value
+
+    (pos, transform(value))
+print
+_ as mask
+_ as puzzle
+
+vec_add(a, b) = (add(first(a), first(b)), add(second(a), second(b)))
+
+neighbors = (
+        (sub(0, 1), sub(0, 1)),
+        (sub(0, 1), 0),
+        (sub(0, 1), 1),
+        (0, sub(0, 1)),
+        (0, 1),
+        (1, sub(0, 1)),
+        (1, 0),
+        (1, 1),
+    )
+
+
+
+mask
+    first
+_ as mask_keys
+
+range(0, 4)
+reduce(mask)
+    _1 as data
+    _2 as acc
+
+    acc
+    filter
+        second(_) as val
+        or(eq(val, "*"), eq(val, "x"))
+    _
+        first(_) as pos
+
+        neighbors
+            vec_add(pos)
+    flatten
+    distinct
+    _ as to_mark
+
+    acc
+    filter
+        second(_) as value
+    
+        any((
+            eq(value, "1"),
+            eq(value, "2"),
+            eq(value, "3"),
+            eq(value, "4"),
+            eq(value, "5"),
+            eq(value, "6"),
+            eq(value, "7"),
+            eq(value, "8"),
+            eq(value, "9"),
+            eq(value, "0"),
+        ))
+    _
+        first
+    _ as numbers
+
+    intersect(numbers, to_mark)
+    print
+    reduce(acc)
+        _1 as data
+        _2 as acc
+
+        set(acc, index(mask_keys, data), (data, "x"))
+_ as mask
+print
+
+
+puzzle_map
+filter
+    second(_) as value
+
+    any((
+        eq(value, "1"),
+        eq(value, "2"),
+        eq(value, "3"),
+        eq(value, "4"),
+        eq(value, "5"),
+        eq(value, "6"),
+        eq(value, "7"),
+        eq(value, "8"),
+        eq(value, "9"),
+        eq(value, "0"),
+    ))
+_
+    first
+_ as numbers
+
+mask
+filter
+    second
+    eq("*")
+print
+parallel(12)
+    _ as data
+
+    first(data) | print
+
+    # Create a mini mask to base everything off of
+    print("Creating minimask")
+
+    puzzle_map
+        _ as data
+        second(data) as value
+        eq("*") as is_gear
+
+        (first(data), ".") as replacement
+
+        if(is_gear, replacement, data)
+    set(index(mask_keys, first(data)), data)
+    _ as mask
+    print
+
+    range(0, 4)
+    reduce(mask)
+        _1 as data
+        _2 as acc
+
+        print("xpand cycle")
+
+        acc
+        filter
+            second
+            eq("*")
+        _
+            first(_) as pos
+            print
+
+            neighbors
+                vec_add(pos)
+        print
+        flatten
+        distinct
+        _ as to_mark
+        
+        intersect(numbers, to_mark)
+        print
+        reduce(acc)
+            _1 as data
+            _2 as acc
+
+            set(acc, index(mask_keys, data), (data, "*"))
+    print
+    _ as minimask
+
+    print("Starting Num Collection")
+
+    input
+    split("\n")
+    enumerate
+        _ as data
+        first(data) as row
+        second(data) as line
+
+        line
+        list
+        enumerate
+            _ as data
+            first(data) as col
+            second(data) as value
+
+            mask_keys
+            index((row, col)) as mask_index
+
+            get(minimask, mask_index)
+            second as mask_value
+
+            if(eq(mask_value, "*"), value, ".")
+        join("")
+        print
+        replace(".", " ")
+        replace("*", " ")
+        replace("#", " ")
+        replace("$", " ")
+        replace("+", " ")
+        replace("@", " ")
+        replace("-", " ")
+        replace("&", " ")
+        replace("/", " ")
+        replace("%", " ")
+        replace("=", " ")
+        strip
+        split(" ")
+        filter
+            not(is_blank(_))
+        _
+            int
+    flatten
+    print
+filter
+    len
+    eq(2)
+_
+    _ as data
+    mul(first(data), second(data))
+sum
+print
+
+# TODO: Create efficent map data type
+# TODO: mutability?
+# TODO: Line numbers for errors
