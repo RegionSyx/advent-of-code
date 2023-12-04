@@ -1,0 +1,63 @@
+stdin as input
+
+pow(x, e) = pyeval("x ** e")
+
+score(0) = 0
+score(x) = int(div(pow(2, sub(x, 1)), 1))
+
+input
+split("\n")
+    split(": ")
+    second
+    split(" | ")
+        strip
+        replace("  ", " ")
+        split(" ")
+            strip
+            int
+_
+    _ as line
+    first(line) as winning
+    second(line) as my_numbers
+
+    intersect(winning, my_numbers)
+    len
+_ as scores
+sum
+
+# Solution 1
+scores
+    score
+sum
+print
+
+    
+# Solution 2
+scores
+len as l
+range(0, l)
+    1
+_ as card_counts
+
+scores
+enumerate
+reduce(card_counts)
+    _1 as data
+    _2 as acc
+
+    first(data) as i
+    second(data) as score
+
+    get(acc, i) as count
+
+    add(i, 1) as start
+    add(start, score) as end
+
+    range(start, end)
+    reduce(acc)
+        _1 as j
+        _2 as acc
+        get(acc, j) as current
+        set(acc, j, add(current, count))
+sum
+print
