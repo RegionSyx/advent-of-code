@@ -7,12 +7,12 @@ append(d, item) = pyeval("d +(item,)")
 flatten(d) = pyeval("tuple([item for row in d for item in row])")
 vec_add(a, b) = (add(first(a), first(b)), add(second(a), second(b)))
 neighbors = (
-        (sub(0, 1), sub(0, 1)),
-        (sub(0, 1), 0),
-        (sub(0, 1), 1),
-        (0, sub(0, 1)),
+        (-1, -1),
+        (-1, 0),
+        (-1, 1),
+        (0, -1),
         (0, 1),
-        (1, sub(0, 1)),
+        (1, -1),
         (1, 0),
         (1, 1),
     )
