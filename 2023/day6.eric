@@ -5,7 +5,10 @@ sqrt(x) = pyeval("math.sqrt(x)")
 abs(x) = pyeval("abs(x)")
 neg(x) = sub(0, x)
 
-quadratic_formula(a, b, c) = (div(sub(sub(0, b), sqrt(sub(mul(b, b), mul(4 mul(a, c))))), mul(2, a)), div(add(sub(0, b), sqrt(sub(mul(b, b), mul(4 mul(a, c))))), mul(2, a)))
+quadratic_formula(a, b, c) = (
+    div(sub(sub(0, b), sqrt(sub(mul(b, b), mul(4 mul(a, c))))), mul(2, a)),
+    div(add(sub(0, b), sqrt(sub(mul(b, b), mul(4 mul(a, c))))), mul(2, a)),
+)
 
 input
 split("\n")
