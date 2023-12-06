@@ -1,0 +1,151 @@
+stdin as input
+
+input
+split("\n\n") as parts
+
+parts
+get(0)
+split(": ")
+second
+split(" ")
+    int
+_ as seeds
+
+parts
+get(1) as map
+split("\n")
+slice(1, len(map))
+    split(" ")
+        int
+    _
+_ as seed_to_soil
+
+seeds
+    _ as seed
+
+    parts
+    slice(1, len(parts))
+        split("\n")
+        slice(1, len(map))
+            split(" ")
+                int
+    _ as maps
+    
+
+    maps
+    reduce(seed)
+        _1 as map
+        _2 as current_num
+
+        map
+        reduce(false)
+            _1 as data
+            _2 as acc
+
+            and(gte(current_num, second(data)), lt(current_num, add(second(data), third(data))))
+            if(add(first(data), sub(current_num, second(data))), acc)
+        _ as result
+        if(eq(result, false), current_num, result) 
+min
+print
+
+
+pyeval("tuple([(seeds[i], seeds[i + 1]) for i in list(range(len(seeds)))[::2]])")
+    _ as inital_seed_range
+
+    parts
+    slice(1, len(parts))
+        split("\n")
+        slice(1, len(map))
+            split(" ")
+                int
+    _ as maps
+    
+    maps
+    reduce((inital_seed_range))
+        _1 as map
+        _2 as seed_ranges
+
+        map
+        reduce(((), seed_ranges))
+            _1 as data
+            _2 as acc
+
+            first(acc) as new_ranges
+            second(acc) as remaining_ranges
+
+            remaining_ranges
+                _ as seed_range
+
+                first(seed_range)                          as a1
+                add(first(seed_range), second(seed_range)) as a2
+                second(data)                               as b1
+                add(second(data), third(data))             as b2
+
+                third(data) as N
+
+                all(( lt(b1, a1), lte(b2, a1)           )) as case1
+                all(( lt(b1, a1), gt(b2, a1), lt(b2, a2))) as case2
+                all(( gte(b1, a1), lte(b2, a2)          )) as case3
+                all(( gt(b1, a1), gt(b2, a2), lt(b1, a2))) as case4
+                all(( gte(b1, a2), gt(b2, a2)           )) as case5
+                all(( lte(b1, a1), gte(b2, a2)          )) as case6
+                
+                ()
+                append(if(case1, list(((        ), ((a1, a2)          ))), false))
+                append(if(case2, list((((a1, b2)), ((b2, a2)          ))), false))
+                append(if(case3, list((((b1, b2)), ((a1, b1), (b2, a2)))), false))
+                append(if(case4, list((((b1, a2)), ((a1, b1)          ))), false))
+                append(if(case5, list(((        ), ((a1, a2)          ))), false))
+                append(if(case6, list((((a1, a2)), (                  ))), false))
+                filter
+                    eq(false)
+                    not
+                transpose
+                    flatten
+                    filter
+                        _ as data
+                        sub(second(data), first(data))
+                        gt(0)
+                    distinct
+                _ as results
+                first(results) as new
+                second(results) as remaining
+
+                remaining
+                    _ as d
+                    (
+                        first(d),
+                        sub(second(d), first(d))
+                    )
+                _ as remaining
+                
+
+                new
+                    _ as d
+                    (
+                        sub(first(d), sub(second(data), first(data))),
+                        sub(second(d), first(d))
+                    )
+                _ as new_seeds_ranges
+
+                (new_seeds_ranges, remaining)
+            _ as result
+
+            if(eq(len(result), 0), ((), ()), transpose(result))
+                flatten
+            _ as result
+            
+            (add(new_ranges, first(result)), second(result))
+        _
+        flatten
+    _
+_
+flatten
+filter
+    second
+    gt(0)
+_
+    first
+min
+print
