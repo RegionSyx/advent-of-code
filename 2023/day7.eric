@@ -1,0 +1,75 @@
+stdin as input
+
+card_value("A") = 14
+card_value("K") = 13
+card_value("Q") = 12
+card_value("J") = 1
+card_value("T") = 10
+card_value(x) = int(x)
+
+hand_rank(1, 5) = 7
+hand_rank(2, 4) = 6
+hand_rank(2, 3) = 5
+hand_rank(3, 3) = 4
+hand_rank(3, 2) = 3
+hand_rank(4, 2) = 2
+hand_rank(5, 1) = 1
+hand_rank(num_distinct, highest_duplicate_card_count) = "Not Valid??"
+
+
+input
+split("\n")
+    split(" ") as hand
+    first(hand) as cards
+    second(hand) | int as bid
+    
+    ("1", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A")
+        _ as joker
+
+        cards
+        replace("J", joker)
+        reduce((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+            _1 as card
+            _2 as acc
+
+            card_value(card) as v
+
+            set(acc, sub(v, 1), inc(get(acc, sub(v, 1))))
+        max
+    max as max_card_count
+
+    ("1", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A")
+        _ as joker
+
+        cards
+        replace("J", joker)
+        distinct
+        len
+    min
+    _ as num_distinct_cards
+
+    hand_rank(num_distinct_cards, max_card_count) as type_value
+
+
+    card_value(get(cards, 0)) as card0
+    card_value(get(cards, 1)) as card1
+    card_value(get(cards, 2)) as card2
+    card_value(get(cards, 3)) as card3
+    card_value(get(cards, 4)) as card4
+
+
+    ()
+    append(type_value)
+    append(card0)
+    append(card1)
+    append(card2)
+    append(card3)
+    append(card4)
+    append(bid)
+sort
+enumerate
+reduce(0)
+    _1 as data
+    _2 as acc
+    add(acc, mul(inc(first(data)), last(second(data))))
+print
